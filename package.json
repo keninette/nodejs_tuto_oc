@@ -1,0 +1,23 @@
+{
+  "name": "nodejs_tuto_oc",
+  "version": "0.1.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "kbj",
+  "contributors": [],
+  "dependencies": {
+    "markdown": "~0.4"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.0",
+    "express-csrf": "^0.3.4",
+    "express-session": "^1.14.0",
+    "pug": "^2.0.0-beta4"
+  }
+}
