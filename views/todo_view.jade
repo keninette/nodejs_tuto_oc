@@ -1,0 +1,18 @@
+html(lang="fr")
+    head
+        block title
+            title=todolist
+    body
+        h1.row Plopiplop !
+        p.row Bienvenue chez Jean-Gilles !
+
+        block append list
+            p.row Jean-Gilles a dit, tu dois encore faire :
+                ul
+                    each id, todo in todolist
+                        li a:(href="/todo/delete/" +id) todo
+
+        block append form                
+            form(name="task", method="post", action="/todo/add")
+                input(name="label", id="label", type="text")
+                input(type="submit")            
