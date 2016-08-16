@@ -1,11 +1,11 @@
-var express = require('express');
-var session = require('cookie-session'); 
-var bodyParser = require('body-parser'); // Parameters handler
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var app     = express();
+var express             = require('express');
+var session             = require('cookie-session'); 
+var bodyParser          = require('body-parser'); // Parameters handler
+var urlencodedParser    = bodyParser.urlencoded({ extended: false });
+var app                 = express();
 
 // Middlewares
-app.use(session({secret: 'plop'}));
+app .use(session({secret: 'plop'}));
 
 // If todolist doesn't exist, create an empty one
 app.use(function(req, res, next){
@@ -24,6 +24,9 @@ app.get ('/', function(req, res) {
         res.render('todo_view.jade', {todolist : req.session.todolist});
     })
     .post('/todo/add', function(req, res) {
+        
+        console.log(req.body);
+        
         // if form has been filled, add task to session
         if (typeof(req.task) !== 'undefined') {
             req.session.todolist.push(req.task.label);
