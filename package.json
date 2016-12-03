@@ -1,17 +1,14 @@
 {
   "name": "nodejs_tuto_oc",
   "version": "0.1.0",
-  "keywords": [
-    "util",
-    "functional",
-    "server",
-    "client",
-    "browser"
-  ],
   "author": "kbj",
   "contributors": [],
   "dependencies": {
-    "markdown": "~0.4"
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "cookie-session": "^2.0.0-alpha.1",
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
   },
   "devDependencies": {
     "body-parser": "^1.15.2",
@@ -19,6 +16,6 @@
     "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.14.0",
     "jade": "^1.11.0",
-    "pug": "^2.0.0-beta4"
+    "morgan": "^1.7.0"
   }
 }

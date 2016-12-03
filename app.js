@@ -1,44 +1,50 @@
-var express             = require('express');
-var session             = require('cookie-session'); 
-var bodyParser          = require('body-parser'); // Parameters handler
-var urlencodedParser    = bodyParser.urlencoded({ extended: false });
-var app                 = express();
+var express             = require('express');           // load express framework
+var app                 = express();                    // start express        
+var logger              = require('morgan');            // http logger
+var session             = require('express-session');   // session manager    
+var bodyParser = require('body-parser');                // parameters manager
+var urlencodedparser = bodyParser.urlencoded({ extended: false });
 
 // Middlewares
-app .use(session({secret: 'plop'}));
 
-// If todolist doesn't exist, create an empty one
-app.use(function(req, res, next){
-  
-    if (typeof(req.session.todolist) === 'undefined') {
-        req.session.todolist = [];
-    }
-    next();
-});
+// start logger
+app.use(logger('combined')) 
+    .use(session({
+        secret : 'plop'
+    }))
+// if todolist isn't set, create an empty one    
+    .use(function(req,res,next){
+        if (typeof req.session.todolist === 'undefined') {
+            console.log('empty todolist');
+            req.session.todolist = [];
+            req.session.todolist.push('plop');
+            req.session.todolist.push('plup');
+            req.session.todolist.push('plip');
+            req.session.todolist.push('plap');
+            req.session.todolist.push('plep');
+        }
+        next();
+    });
 
 // Routes
-app.get ('/', function(req, res) {
+app .get ('/', function(req, res) {
         res.render('home.jade', {session: req.session});
     })
-    .get('/todo', function(req,res) {
+    .get('/todo', function(req,res) {       
         res.render('todo_view.jade', {todolist : req.session.todolist});
     })
-    .post('/todo/add', function(req, res) {
+    .get('/todo/delete/:index', function(req,res){
         
-        console.log(req.body);
-        
-        // if form has been filled, add task to session
-        if (typeof(req.task) !== 'undefined') {
-            req.session.todolist.push(req.task.label);
-        } 
-        
-        console.log(req.session.todolist);
-        // In any case, display todolist + form 
-        res.render('todo_view.jade', {todolist: req.session.todolist});
-          
+        // check if index is valid
+        if ( ! isNaN(req.params.index)
+        && req.params.index < req.session.todolist.length) {
+            req.session.todolist.splice(req.params.index,1);
+        }
+        res.redirect('/todo');
     })
-    .get('/todo/delete/:id', function(req,res) {
-        
+    .post('/todo/add', urlencodedparser, function(req,res) {
+        req.session.todolist.push(req.body.task);        
+        res.redirect('/todo');        
     });
 
 // 404 error
