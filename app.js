@@ -2,8 +2,8 @@ var express             = require('express');           // load express framewor
 var app                 = express();                    // start express        
 var logger              = require('morgan');            // http logger
 var session             = require('express-session');   // session manager    
-var bodyParser = require('body-parser');                // parameters manager
-var urlencodedparser = bodyParser.urlencoded({ extended: false });
+var bodyParser          = require('body-parser');                // parameters manager
+var urlencodedparser    = bodyParser.urlencoded({ extended: false });
 
 // Middlewares
 
